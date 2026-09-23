@@ -1,0 +1,234 @@
+<!doctype html>
+<!--
+  This page includes map.js and reminders.js from travel-plan-viz.
+  MIT License
+  Copyright (c) 2026 zexuanw958-svg
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+-->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#153c3c"><title>大理国庆五日旅行计划｜10月1—5日</title><meta name="description" content="3位出行的大理国庆五日路线：古城、喜洲、金梭岛、双廊与苍山。"><link rel="preconnect" href="https://unpkg.com"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>
+:root{--bg:#f5f4ed;--card:#fffefa;--ink:#1b3835;--muted:#61736d;--line:#dbe3d9;--accent:#c27844;--accent2:#d9ac65;--dark:#153c3c;--sea:#377978;--pale:#edf3ed;--shadow:0 10px 35px rgba(30,60,55,.07)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}button{font:inherit}.wrap{width:min(960px,calc(100% - 32px));margin:auto}.hero{background:var(--dark);color:#fdf9eb;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:-10% -10% auto auto;width:560px;height:560px;border:1px solid rgba(255,255,255,.13);border-radius:50%;box-shadow:0 0 0 55px rgba(255,255,255,.018),0 0 0 110px rgba(255,255,255,.018),0 0 0 165px rgba(255,255,255,.015)}.hero-inner{position:relative;padding:50px 0 42px}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;letter-spacing:.12em;font-size:.72rem;font-weight:800;color:#c3d6ce;text-transform:uppercase}.brand{display:flex;align-items:center;gap:10px}.brand-dot{width:26px;height:26px;border-radius:50%;background:var(--accent2);display:inline-grid;place-items:center;color:var(--dark);letter-spacing:0;font-size:16px}.hero h1{font-family:Georgia,"Songti SC","Noto Serif SC",serif;font-size:clamp(2.7rem,7vw,5.1rem);line-height:1.13;font-weight:500;letter-spacing:.04em;margin:48px 0 12px}.hero h1 span{color:#e9c894}.hero-sub{font-size:1.03rem;color:#d2e1d9;max-width:620px;margin:0 0 32px}.hero-facts{display:flex;flex-wrap:wrap;gap:10px}.hero-facts span{border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:7px 14px;font-size:.85rem;background:rgba(255,255,255,.05)}.hero-bottom{margin-top:42px;display:flex;align-items:center;gap:14px;color:#d7dfd5;font-size:.85rem}.hero-rule{height:1px;flex:1;background:rgba(255,255,255,.22)}.nav{position:sticky;top:0;z-index:100;background:rgba(245,244,237,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav-inner{display:flex;gap:8px;overflow-x:auto;padding:10px 0;scrollbar-width:none}.nav-inner::-webkit-scrollbar{display:none}.nav a{white-space:nowrap;text-decoration:none;border-radius:99px;padding:7px 13px;color:var(--muted);font-size:.82rem;font-weight:700}.nav a:hover,.nav a.active{color:#fff;background:var(--dark)}main{padding:30px 0 72px}.section{margin-top:42px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.19em;color:var(--accent);text-transform:uppercase}.section h2{font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.25;letter-spacing:.02em;margin:4px 0 0;font-family:Georgia,"Songti SC",serif}.section-desc{color:var(--muted);font-size:.9rem;margin:0}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.alert{border-left:5px solid var(--accent);padding:18px 20px;background:#fffaf0}.alert b{color:#9c5126}.alert p{margin:5px 0 0;color:#4f5e56;font-size:.9rem}.overview{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.overview-card{padding:22px}.overview-card h3{margin:0 0 14px;font-size:1.05rem}.rail-card{background:var(--dark);color:#fff}.rail-row{display:flex;align-items:center;gap:13px;padding:14px 0;border-top:1px solid rgba(255,255,255,.15)}.rail-row:first-of-type{border-top:none}.rail-date{font-size:1.5rem;font-weight:800;min-width:55px}.rail-detail{font-size:.84rem;color:#d6e3dc}.rail-detail b{display:block;color:#fff;font-size:1rem}.rail-time{margin-left:auto;font-size:1.2rem;font-weight:800;color:#edd29f}.quick-list{list-style:none;padding:0;margin:0}.quick-list li{padding:10px 0;border-top:1px solid var(--line);font-size:.89rem}.quick-list li:first-child{border:none}.quick-list strong{color:var(--accent)}.todo-card{padding:22px}.todo-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.pill{font-size:.75rem;border-radius:99px;background:#eaf0e8;padding:5px 10px;color:var(--sea);font-weight:700}.pretrip-todo{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}.todo-item{border:1px solid var(--line);border-radius:13px;padding:12px;display:flex;gap:9px;align-items:start;font-size:.84rem}.todo-item input{accent-color:var(--sea);width:17px;height:17px;flex:none;margin:2px 0 0}.todo-item:has(input:checked){opacity:.52}.todo-item:has(input:checked) .todo-text{text-decoration:line-through}.todo-deadline{display:block;white-space:nowrap;color:#a8592e;font-weight:800}.todo-text{display:block}.check-note{font-size:.77rem;color:var(--muted);margin:10px 0 0}.prep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.prep-card{padding:18px}.prep-card h3{font-size:.97rem;margin:0 0 8px}.prep-card p{margin:0;color:var(--muted);font-size:.85rem}.map-card{overflow:hidden}.map-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.map-header p{margin:0;color:var(--muted);font-size:.83rem}.map-actions{display:flex;gap:5px;overflow-x:auto}.map-actions button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 10px;color:var(--muted);cursor:pointer;font-size:.8rem}.map-actions button.active{background:var(--dark);color:#fff;border-color:var(--dark)}#map{height:390px;background:#d9e6e2}.map-fallback{display:none;background:#eaf1ec;padding:35px 20px;text-align:center;color:var(--muted)}.map-note{padding:11px 20px;font-size:.75rem;color:var(--muted);background:#fff}.route-pin{border-radius:50%;background:var(--dark);border:2px solid #fff;box-shadow:0 3px 8px #0004;color:#fff;text-align:center;line-height:25px;font-weight:800}.route-pin__num{font-size:11px}.leaflet-popup-content a{color:#176e69}.days{display:grid;gap:20px}.day{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);scroll-margin-top:90px}.day-head{padding:22px 26px;display:flex;justify-content:space-between;gap:10px;background:linear-gradient(112deg,#eff4ed,#fffdf6);border-bottom:1px solid var(--line)}.day-head h3{font:500 clamp(1.4rem,3vw,1.9rem)/1.25 Georgia,"Songti SC",serif;margin:5px 0}.day-head h3 em{font:800 .78rem/1 sans-serif;background:var(--dark);color:#fff;border-radius:7px;padding:6px 8px;vertical-align:middle;margin-right:5px;font-style:normal}.day-head p{color:var(--muted);margin:0;font-size:.84rem}.day-mark{font:italic 3rem Georgia,serif;color:#d1dcd2;line-height:1}.day-grid{display:grid;grid-template-columns:1.55fr .8fr}.stops{padding:10px 22px}.stop{display:flex;gap:15px;position:relative;padding:21px 0;border-bottom:1px solid var(--line)}.stop:last-child{border:0}.stop-num{flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--dark);color:#fff;font-size:.7rem;font-weight:800}.stop-body{min-width:0;flex:1}.stop-top{display:flex;gap:10px;align-items:center}.time{color:var(--accent);font-size:.79rem;font-weight:800}.period{font-size:.72rem;color:var(--muted)}.stop h4{font-size:1.06rem;margin:3px 0 5px}.stop p{margin:0;color:var(--muted);font-size:.84rem}.stop-symbol{align-self:start;width:46px;height:46px;display:grid;place-items:center;border-radius:15px;background:#e6efea;color:var(--sea);font-family:serif;font-size:1.35rem}.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}.tags span{background:#f0f3ec;color:#62736b;padding:3px 8px;border-radius:5px;font-size:.72rem}.reminder-badge{display:inline-block;margin-top:9px;color:#a7572a;background:#fff0df;border-radius:5px;padding:3px 7px;font-size:.72rem;font-weight:800}.day-side{background:#f8f9f4;border-left:1px solid var(--line);padding:20px 16px;display:grid;align-content:start;gap:12px}.mini-panel{background:#fff;border:1px solid var(--line);padding:15px;border-radius:14px}.mini-panel h4{margin:0 0 8px;font-size:.89rem}.mini-panel p{font-size:.79rem;color:var(--muted);margin:7px 0}.mini-panel p:last-child{margin-bottom:0}.accent-panel{background:#fbf3e8;border-color:#eed9bf}.meal{padding:7px 0;border-top:1px solid var(--line);font-size:.78rem}.meal:first-of-type{border:0}.meal b{color:var(--accent);margin-right:7px}.meal small{display:block;color:var(--muted);font-size:.72rem;margin-top:3px}.hotel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.hotel-area{padding:20px;background:var(--card);border:1px solid var(--line);border-radius:18px}.hotel-area h3{margin:0;font-size:1rem}.hotel-area>p{font-size:.82rem;color:var(--muted);margin:7px 0 15px}.hotel-list{display:grid;gap:9px}.hotel-option{border:1px solid var(--line);border-radius:11px;padding:12px;background:#f9fbf7}.hotel-option b{display:block;font-size:.86rem;margin:4px 0}.hotel-option p,.hotel-option small{color:var(--muted);font-size:.75rem;margin:0;display:block}.hotel-option a{font-size:.74rem;font-weight:700;color:var(--sea)}.tier{font-size:.67rem;border-radius:4px;background:#e4eee8;color:var(--sea);padding:2px 6px}.foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.foot-card{padding:20px}.foot-card h3{margin:0 0 10px}.foot-card li{margin:6px 0;font-size:.83rem;color:var(--muted)}.foot-card ul{padding-left:20px;margin:0}.sources{font-size:.75rem;color:var(--muted);columns:2;padding-left:18px}.sources li{break-inside:avoid;margin-bottom:7px}.disclaimer{font-size:.78rem;color:#66736d;padding:17px 19px;border:1px solid var(--line);border-radius:12px;background:#eef1e9;margin-top:17px}.end{text-align:center;margin-top:46px;color:var(--sea);font:italic 1.2rem Georgia,serif}.end small{display:block;font:normal .74rem sans-serif;color:var(--muted);margin-top:5px}@media(max-width:760px){.hero-inner{padding-top:30px}.hero h1{margin-top:35px}.overview,.prep-grid,.hotel-grid,.foot-grid,.day-grid{grid-template-columns:1fr}.pretrip-todo{grid-template-columns:1fr}.day-side{border-left:0;border-top:1px solid var(--line);grid-template-columns:1fr 1fr}.map-header{display:block}.map-actions{margin-top:10px}.sources{columns:1}}@media(max-width:480px){.wrap{width:min(100% - 22px,440px)}main{padding-top:20px}.hero h1{font-size:2.65rem}.hero-facts span{font-size:.75rem;padding:6px 10px}.section{margin-top:33px}.day-head{padding:17px}.stops{padding:4px 15px}.stop{gap:10px}.stop-symbol{width:37px;height:37px;border-radius:11px}.day-side{grid-template-columns:1fr;padding:14px}.map-header{padding:14px}.rail-card{padding:18px}.rail-time{font-size:1rem}#map{height:310px}}.photo-placeholder{aspect-ratio:16/9;background:linear-gradient(130deg,#cbded6,#e3d1af)}.photo-placeholder img{width:100%;height:100%;object-fit:cover;display:block}
+</style></head><body>
+<header class="hero"><div class="wrap hero-inner"><div class="topline"><div class="brand"><span class="brand-dot">洱</span> DALI / TRAVEL NOTES</div><span>2026 · 国庆假期</span></div><h1>去大理，<br><span>把日子放慢。</span></h1><p class="hero-sub">从古城晚风，到海西的扎染与稻田；越过洱海，最后走进苍山。五天四晚，按你给出的路线整理。</p><div class="hero-facts"><span>10 月 1 — 5 日</span><span>3 位同行</span><span>大理古城连住 4 晚</span><span>大理站往返</span></div><div class="hero-bottom"><span>一份能随身打开的行程</span><span class="hero-rule"></span><span>01 / 05</span></div></div></header>
+<nav class="nav"><div class="wrap nav-inner"><a href="#overview">概览</a><a href="#todo">出发前</a><a href="#map-section">路线地图</a><a href="#itinerary">逐日行程</a><a href="#hotels">住哪里</a><a href="#sources">核实资料</a></div></nav>
+<main class="wrap"><div class="card alert"><b>这趟最要紧的三件事</b><p>① 尽快确定 3 位入住的 4 晚酒店；② 核对 10 月 5 日 18:35 返程票；③ D3 金梭岛船班与海菜花演出时间以当日安排为准。D2、D3 都偏满，预留删减空间。</p></div>
+<section class="section" id="overview"><div class="section-head"><div><span class="eyebrow">01 / TRIP SNAPSHOT</span><h2>先把大局看清楚</h2></div></div><div class="overview"><div class="card overview-card rail-card"><h3>进出大理 · 大理站</h3><div class="rail-row"><span class="rail-date">10.01</span><span class="rail-detail"><b>到站 · 接站</b>出站后前往古城周边酒店</span><span class="rail-time">17:37</span></div><div class="rail-row"><span class="rail-date">10.05</span><span class="rail-detail"><b>送站 · 返程</b>建议约 15:30 从酒店出发</span><span class="rail-time">18:35</span></div></div><div class="card overview-card"><h3>每天一个主画面</h3><ul class="quick-list"><li><strong>D1</strong> 接站、入住、夜逛古城</li><li><strong>D2</strong> 周城扎染、喜洲、海舌、S 湾</li><li><strong>D3</strong> 金梭岛、理想邦、双廊、玉几岛</li><li><strong>D4</strong> 苍山感通索道、古城休息</li><li><strong>D5</strong> 慢早餐、自由活动、送站</li></ul></div></div></section>
+<section class="section" id="todo"><div class="section-head"><div><span class="eyebrow">02 / BEFORE YOU GO</span><h2>出发前，先处理这些</h2></div><span class="pill">日期按 10 月 1 日倒推</span></div><div class="card todo-card"><div class="todo-top"><strong>行前待办</strong><span class="pill">勾选会保存在这台设备</span></div><div id="todo-list"></div><p class="check-note">“建议提前”是规划提醒，不代表官方放票或预约窗口；已过日期的事项现在就处理。</p></div><div class="prep-grid" style="margin-top:12px"><div class="card prep-card"><h3>🌦 天气与山上</h3><p>10 月大理市多年平均气温约 16℃；这是气候背景，不是 10 月 1—5 日的天气预报。出发前 1—3 天再查逐日天气。 苍山山地天气变化快，遇大风、降雨或索道临时停运时，D4 改为古城慢逛。</p></div><div class="card prep-card"><h3>🧥 穿什么</h3><p>薄外套＋分层穿搭、防晒帽、雨具、舒适步行鞋；苍山上比古城更冷，建议另带保暖层。</p></div><div class="card prep-card"><h3>💳 支付与租车</h3><p>日常可用移动支付；骑行租车、扎染体验及小摊消费前先问清总价与押金。</p></div><div class="card prep-card"><h3>📱 出发前查</h3><p>铁路12306（核对车票与到站） · 高德地图（当日导航） · 天气预报 App（苍山及湖边天气）</p></div></div></section>
+<section class="section" id="map-section"><div class="section-head"><div><span class="eyebrow">03 / ROUTE AT A GLANCE</span><h2>沿着洱海，看一眼路线</h2></div></div><div class="card map-card"><div class="map-header"><p>按天切换地图点位；虚线仅表示先后顺序，<b>不是导航路线</b>。</p><div class="map-actions" id="map-actions"><button class="active" data-map-day="all">全程</button><button data-map-day="1">D1</button><button data-map-day="2">D2</button><button data-map-day="3">D3</button><button data-map-day="4">D4</button><button data-map-day="5">D5</button></div></div><div id="map"></div><div class="map-fallback" id="map-fallback">地图资源暂时无法加载。下面的文字行程仍可离线查看。</div><div class="map-note">地图点位取景区或片区代表位置；到店、上船及骑行入口请以当日现场与地图 App 为准。地图瓦片需要联网。</div></div></section>
+<section class="section" id="itinerary"><div class="section-head"><div><span class="eyebrow">04 / DAY BY DAY</span><h2>五天，按自己的节奏走</h2></div></div><div class="days"><section class="day" id="day-1" data-day="1"><header class="day-head"><div><span class="eyebrow">1 OCT · 周四</span><h3><em>D1</em> 抵达大理 · 古城夜色</h3><p>到站 17:37 / 轻松入住</p></div><span class="day-mark">01</span></header><div class="day-grid"><div class="stops"><article class="stop"><div class="stop-num">01</div><div class="stop-body"><div class="stop-top"><span class="time">17:37–18:15</span><span class="period">傍晚</span></div><h4>大理站接站</h4><p>出站后与接站人会合，再前往古城周边酒店。</p><div class="tags"><span>交通：接站车 / 景区直通车</span><span>预留：常态约 40 分钟，国庆预留更多时间</span></div></div><div class="stop-symbol">车</div></article><article class="stop"><div class="stop-num">02</div><div class="stop-body"><div class="stop-top"><span class="time">约19:00起</span><span class="period">傍晚</span></div><h4>大理古城 · 入住与自由活动</h4><p>先安顿行李，再沿人民路、复兴路选一段慢逛，不安排硬性打卡。</p><div class="tags"><span>开放：古城街巷开放；店铺时间各异</span><span>交通：酒店步行</span><span>预留：按酒店位置而定</span></div></div><div class="stop-symbol">城</div></article></div><aside class="day-side"><div class="mini-panel"><h4>吃点什么</h4><div class="meal"><b>晚餐</b><span>古城周边白族菜馆（现场选店）</span><small>酸辣鱼 · 乳扇 · 到店核实营业时间</small></div></div><div class="mini-panel"><h4>当日提醒</h4><p>• 先确认接站司机举牌或上车点；古城核心区车辆通行有限，订房时问清可下车的位置。</p></div></aside></div></section><section class="day" id="day-2" data-day="2"><header class="day-head"><div><span class="eyebrow">2 OCT · 周五</span><h3><em>D2</em> 海西 · 扎染与喜洲</h3><p>北上周城 → 喜洲 → 海舌 → 南返 S 湾</p></div><span class="day-mark">02</span></header><div class="day-grid"><div class="stops"><article class="stop"><div class="stop-num">01</div><div class="stop-body"><div class="stop-top"><span class="time">09:00–10:30</span><span class="period">上午</span></div><h4>周城扎染体验</h4><p>先看白族扎染工序，再选择短时体验；费用与取件方式到店确认。</p><div class="tags"><span>费用：体验价格以店内公示为准</span><span>交通：从古城约车北上</span><span>预留：国庆按实时路况</span></div></div><div class="stop-symbol">染</div></article><article class="stop"><div class="stop-num">02</div><div class="stop-body"><div class="stop-top"><span class="time">11:00–13:30</span><span class="period">午后</span></div><h4>喜洲古镇 · 转角楼 · 喜林苑外墙</h4><p>白族民居与稻田风貌是重点；把转角楼和喜林苑外墙安排在同一段步行中。</p><div class="tags"><span>开放：古镇街巷开放；院落营业与进入规则另核实</span><span>交通：从周城乘车南下</span><span>预留：约半小时起，国庆预留拥堵</span></div></div><div class="stop-symbol">喜</div></article><article class="stop"><div class="stop-num">03</div><div class="stop-body"><div class="stop-top"><span class="time">14:00–15:45</span><span class="period">午后</span></div><h4>海舌公园 · 海岛下午茶</h4><p>湖边散步与下午茶；园区入口、咖啡店营业及是否需预约以当日信息为准。</p><div class="tags"><span>交通：喜洲片区短途乘车</span><span>预留：按实时路况</span></div></div><div class="stop-symbol">海</div></article><article class="stop"><div class="stop-num">04</div><div class="stop-body"><div class="stop-top"><span class="time">16:30–17:30</span><span class="period">傍晚</span></div><h4>磻溪 S 湾骑行</h4><p>选一小段生态廊道骑行即可；租车前确认车况、时长和还车点。</p><div class="tags"><span>交通：乘车南返后短段骑行</span><span>预留：建议 45–60 分钟</span></div></div><div class="stop-symbol">骑</div></article></div><aside class="day-side"><div class="mini-panel"><h4>吃点什么</h4><div class="meal"><b>午餐</b><span>喜洲古镇内白族小吃（现场选店）</span><small>喜洲粑粑 · 豌豆粉 · 以店内公示为准</small></div><div class="meal"><b>晚餐</b><span>古城周边餐馆（返程后）</span><small>饵丝 · 以店内公示为准</small></div></div><div class="mini-panel accent-panel"><h4>弹性调整</h4><p><b>若时间紧</b><br>保留周城扎染＋喜洲＋海舌；S 湾改为日落短停或取消。</p></div><div class="mini-panel"><h4>当日提醒</h4><p>• 这是多站点日，建议三人包车或约车串行；海舌至 S 湾是返程方向，不建议把两处之间全程骑完。</p><p>• 喜林苑外墙、转角楼可并入喜洲古镇步行段。</p></div></aside></div></section><section class="day" id="day-3" data-day="3"><header class="day-head"><div><span class="eyebrow">3 OCT · 周六</span><h3><em>D3</em> 海东 · 金梭岛到双廊</h3><p>本次行程最长的跨区日</p></div><span class="day-mark">03</span></header><div class="day-grid"><div class="stops"><article class="stop"><div class="stop-num">01</div><div class="stop-body"><div class="stop-top"><span class="time">暂按 09:30 上岛；演出依实际场次调整</span><span class="period">上午</span></div><h4>摆渡上金梭岛 · 龙宫 · 海菜花</h4><p>岛、洞与白族歌舞放在同一段；船班、套票与演出是否连开必须当天核对。</p><span class="reminder-badge">⚑ 建议提前 3 天核实</span><div class="tags"><span>费用：船票/项目票按官方与现场公示</span><span>交通：乘车至码头后换摆渡船</span><span>预留：含排队预留半天</span></div></div><div class="stop-symbol">岛</div></article><article class="stop"><div class="stop-num">02</div><div class="stop-body"><div class="stop-top"><span class="time">13:30–14:20</span><span class="period">午后</span></div><h4>理想邦（大理“圣托里尼”）</h4><p>海东建筑群短停观景；“圣托里尼”是当地俗称，并非希腊目的地。</p><div class="tags"><span>交通：海东片区乘车</span><span>预留：预留停车与步行</span></div></div><div class="stop-symbol">白</div></article><article class="stop"><div class="stop-num">03</div><div class="stop-body"><div class="stop-top"><span class="time">16:00–18:00</span><span class="period">傍晚</span></div><h4>双廊古镇 · 玉几岛</h4><p>到双廊后步行到玉几岛片区；不再额外增加付费岛屿，留时间返回古城。</p><div class="tags"><span>开放：街巷开放；玉几岛入口及收费当日核实</span><span>交通：海东乘车北上，游毕返古城</span><span>预留：跨区长距离，需预留拥堵</span></div></div><div class="stop-symbol">廊</div></article></div><aside class="day-side"><div class="mini-panel"><h4>吃点什么</h4><div class="meal"><b>午餐</b><span>海东片区简餐（按演出时间安排）</span><small>米线 · 以店内公示为准</small></div><div class="meal"><b>晚餐</b><span>双廊古镇内餐馆或回古城后就餐</span><small>白族家常菜 · 以店内公示为准</small></div></div><div class="mini-panel accent-panel"><h4>弹性调整</h4><p><b>若演出延后</b><br>金梭岛＋龙宫＋演出优先；理想邦改为车览短停，双廊／玉几岛留出步行时间。</p></div><div class="mini-panel"><h4>当日提醒</h4><p>• 海菜花演出具体场次未核实，先以当日演出时间倒推上岛与离岛；遇大排队时压缩理想邦停留。</p><p>• 双廊到古城的回程较长，三位出行建议提前约好返程车。</p></div></aside></div></section><section class="day" id="day-4" data-day="4"><header class="day-head"><div><span class="eyebrow">4 OCT · 周日</span><h3><em>D4</em> 苍山 · 感通索道</h3><p>上午上山，下午留白</p></div><span class="day-mark">04</span></header><div class="day-grid"><div class="stops"><article class="stop"><div class="stop-num">01</div><div class="stop-body"><div class="stop-top"><span class="time">08:30–09:15</span><span class="period">上午</span></div><h4>大理古城出发</h4><p>早餐后前往感通索道下站，先核实景区当天是否正常运行。</p><div class="tags"><span>交通：约车前往</span><span>预留：以实时路况为准</span></div></div><div class="stop-symbol">城</div></article><article class="stop"><div class="stop-num">02</div><div class="stop-body"><div class="stop-top"><span class="time">09:30–13:00</span><span class="period">上午</span></div><h4>苍山感通索道 · 清碧溪片区</h4><p>乘索道看苍山洱海，在开放步道范围内量力步行；穿防滑鞋。</p><span class="reminder-badge">⚑ 建议提前 1 天核实</span><div class="tags"><span>开放：索道常规运营以景区当日公告为准</span><span>费用：政府批复：单程 ¥65 / 往返 ¥100（另核实景区门票与当日售价）</span><span>交通：感通索道往返</span><span>预留：含排队预留半天</span></div></div><div class="stop-symbol">山</div></article><article class="stop"><div class="stop-num">03</div><div class="stop-body"><div class="stop-top"><span class="time">下午弹性安排</span><span class="period">傍晚</span></div><h4>返回古城休息</h4><p>山上下来后不再赶点，逛街、喝茶或回酒店休息。</p></div><div class="stop-symbol">茶</div></article></div><aside class="day-side"><div class="mini-panel"><h4>吃点什么</h4><div class="meal"><b>午餐</b><span>感通片区或回古城后就餐</span><small>白族家常菜 · 以店内公示为准</small></div></div><div class="mini-panel accent-panel"><h4>弹性调整</h4><p><b>索道停运</b><br>改为古城散步、茶馆休息；已购票按景区规则处理。</p></div><div class="mini-panel"><h4>当日提醒</h4><p>• “感通寺索道”通常指苍山感通索道，下站在感通寺附近。不要将它与洗马潭大索道混淆。</p><p>• 天气或大风停运时改古城休闲，不强行进山。</p></div></aside></div></section><section class="day" id="day-5" data-day="5"><header class="day-head"><div><span class="eyebrow">5 OCT · 周一</span><h3><em>D5</em> 睡到自然醒 · 从容返程</h3><p>大理站 18:35 发车</p></div><span class="day-mark">05</span></header><div class="day-grid"><div class="stops"><article class="stop"><div class="stop-num">01</div><div class="stop-body"><div class="stop-top"><span class="time">睡到自然醒–12:00</span><span class="period">上午</span></div><h4>古城周边慢早餐 · 退房</h4><p>睡足后在酒店附近轻松活动；核实退房时间并寄存行李。</p></div><div class="stop-symbol">慢</div></article><article class="stop"><div class="stop-num">02</div><div class="stop-body"><div class="stop-top"><span class="time">12:00–15:00</span><span class="period">午后</span></div><h4>自由活动与简餐</h4><p>只在酒店附近逛，不安排需要长途往返的新景点。</p></div><div class="stop-symbol">食</div></article><article class="stop"><div class="stop-num">03</div><div class="stop-body"><div class="stop-top"><span class="time">15:30 出发 / 18:35 发车</span><span class="period">傍晚</span></div><h4>送站 · 大理站</h4><p>目标提前约 90 分钟抵站，给堵车、取行李与安检留缓冲。</p><div class="tags"><span>交通：预订送站车 / 官方景区直通车</span><span>预留：常态约 40 分钟，国庆需更多缓冲</span></div></div><div class="stop-symbol">车</div></article></div><aside class="day-side"><div class="mini-panel"><h4>吃点什么</h4><div class="meal"><b>午餐</b><span>酒店附近简餐</span><small>饵丝或米线 · 以店内公示为准</small></div></div><div class="mini-panel"><h4>当日提醒</h4><p>• 酒店一般中午退房，订房时确认是否可寄存 3 人行李；不要把行李留在无人看管处。</p><p>• 建议 15:30 左右从古城出发、17:00 前后抵达大理站，国庆当天再根据交通情况提前。</p></div></aside></div></section></div></section>
+<section class="section" id="hotels"><div class="section-head"><div><span class="eyebrow">05 / STAY</span><h2>住古城外沿，更好接送车</h2></div><p class="section-desc">3 位成人 · 10 月 1 日入住 / 5 日退房</p></div><div class="hotel-grid"><article class="hotel-area"><h3>古城南门外 / 东门外 · 首选</h3><p>晚到站后接车、D2–D3 包车出发、D5 送站都更方便；选车辆能停靠的门口，避免拖箱穿行古城。</p><div class="hotel-list"><div class="hotel-option"><span class="tier">实用</span><b>大理古城陌陌客栈（南门）</b><p>公开资料列有舒适三人间；确认 3 成人可入住、床型和实际余房。</p><small>10/1–10/5 实时查价</small><a href="https://m.jinmalvyou.com/hotel2/goods_group?goods_group_id=1920968" target="_blank" rel="noopener">查看资料 ↗</a></div><div class="hotel-option"><span class="tier">舒适</span><b>大理风花雪月大酒店（东门）</b><p>玉洱路东段，资料显示可从大理站打车抵达酒店门口；核实三人房或两间房。</p><small>10/1–10/5 实时查价</small><a href="https://zjk.cee.edu.cn/ueditor/php/upload/file/20250819/1755566671936214.pdf" target="_blank" rel="noopener">查看资料 ↗</a></div></div></article><article class="hotel-area"><h3>三月街 / 苍山门外 · 安静备选</h3><p>靠古城西侧，D4 去苍山方便；打车可达性通常比古城深处更稳。</p><div class="hotel-list"><div class="hotel-option"><span class="tier">连锁</span><b>大理古城希尔顿花园酒店</b><p>酒店官网写距苍山门约 680 米，提供连通房；三位入住可比较家庭房与两间连通房总价。</p><small>10/1–10/5 实时查价</small><a href="https://www.hilton.com/zh-hans/hotels/dluacgi-hilton-garden-inn-dali-ancient-city/" target="_blank" rel="noopener">查看资料 ↗</a></div></div></article></div><div class="disclaimer"><b>订房时重点核实：</b>3 成人是否可住一间、是否含加床／早餐、酒店门前能否接送车、实际入住与退房时间、4 晚总价与取消规则。酒店尚未预订，页面不显示未经核实的国庆价格。</div></section>
+<section class="section" id="sources"><div class="section-head"><div><span class="eyebrow">06 / CHECK AGAIN</span><h2>出发前再核对</h2></div></div><div class="foot-grid"><div class="card foot-card"><h3>行程使用提示</h3><ul><li>D2 为海西多点串行：若扎染体验或喜洲停留超时，把 S 湾骑行缩为 30 分钟，或改为散步。</li><li>D3 为全程最紧的一天。金梭岛与海菜花演出需先问当日船班和场次；若结束较晚，理想邦只短停拍照。</li><li>国庆车流与景区排队不可按平日估算。D2、D3 建议提前约好三人用车及候车地点。</li><li>D5 建议 15:30 左右离开古城，目标 17:00 前后到大理站；当日按路况和车站通知调整。</li></ul></div><div class="card foot-card"><h3>参考资料</h3><ol class="sources"><li><a href="https://www.gov.cn/zhengce/zhengceku/202511/content_7047091.htm" target="_blank" rel="noopener">国务院：2026 年国庆放假安排</a></li><li><a href="https://www.12306.cn/mormhweb/zxdt/202205/t20220531_37508.html" target="_blank" rel="noopener">12306：铁路预售期说明</a></li><li><a href="https://pc.youdali.com/mobile/article/detail/1226" target="_blank" rel="noopener">大理旅游集散中心：大理站—古城快线</a></li><li><a href="https://www.yndali.gov.cn/dlsrmzf/c106727/pc/content/1983766513792946176/content_1983766513792946176.html" target="_blank" rel="noopener">大理市政府：感通索道票价批复</a></li><li><a href="https://mzzj.yn.gov.cn/html/2021/difangdongtai_0330/39127.html" target="_blank" rel="noopener">云南省民族宗教事务委员会：周城扎染</a></li><li><a href="https://www.dali.gov.cn/dlzrmzf/c101724/pc/content/1968887167324360704/content_1968887167324360704.html" target="_blank" rel="noopener">大理州政府：苍山与玉带云游路</a></li><li><a href="https://www.dali.gov.cn/dlzrmzf/c105898/1971024559774732288/42c5Kj4p.pdf" target="_blank" rel="noopener">大理统计年鉴：10 月历史气温</a></li><li><a href="https://www.hilton.com/zh-hans/hotels/dluacgi-hilton-garden-inn-dali-ancient-city/" target="_blank" rel="noopener">酒店官网：大理古城希尔顿花园酒店</a></li><li><a href="https://mapcarta.com/W767449039" target="_blank" rel="noopener">OpenStreetMap 数据（经 Mapcarta 整理）：景点坐标</a></li></ol></div></div><div class="disclaimer">本页全部信息（天气、车次、住宿、餐饮、景点、船班、演出、票价、开放时间、交通耗时等）均为行前参考，可能不准确或已变化；出发前请在铁路12306、景区、酒店及地图等官方渠道核实后再预订或前往。</div></section><div class="end">山海有期，慢慢走。<small>大理 · 2026 年 10 月 1—5 日</small></div></main>
+<script id="trip-data" type="application/json">{"title":"大理 · 苍洱之间五日行","startDate":"2026-10-01","colorScheme":"洱海青 × 日照金","travelers":3,"rail":{"arrival":{"date":"10月1日","time":"17:37","station":"大理站","status":"车次未提供"},"departure":{"date":"10月5日","time":"18:35","station":"大理站","status":"车次未提供"}},"preTrip":{"weather":{"summary":"10 月大理市多年平均气温约 16℃；这是气候背景，不是 10 月 1—5 日的天气预报。出发前 1—3 天再查逐日天气。","typhoon":"苍山山地天气变化快，遇大风、降雨或索道临时停运时，D4 改为古城慢逛。"},"packing":"薄外套＋分层穿搭、防晒帽、雨具、舒适步行鞋；苍山上比古城更冷，建议另带保暖层。","payment":"日常可用移动支付；骑行租车、扎染体验及小摊消费前先问清总价与押金。","apps":["铁路12306（核对车票与到站）","高德地图（当日导航）","天气预报 App（苍山及湖边天气）"],"ticketTip":"国庆假期内出行，尽快确认 4 晚住宿、三人房型、接送站及金梭岛船班／演出；感通索道当天运营以景区公示为准。"},"flights":{"booked":[],"candidates":[]},"hotelAreas":[{"area":"古城南门外 / 东门外 · 首选","reason":"晚到站后接车、D2–D3 包车出发、D5 送站都更方便；选车辆能停靠的门口，避免拖箱穿行古城。","options":[{"tier":"实用","name":"大理古城陌陌客栈（南门）","priceRange":"10/1–10/5 实时查价","note":"公开资料列有舒适三人间；确认 3 成人可入住、床型和实际余房。","source":"https://m.jinmalvyou.com/hotel2/goods_group?goods_group_id=1920968"},{"tier":"舒适","name":"大理风花雪月大酒店（东门）","priceRange":"10/1–10/5 实时查价","note":"玉洱路东段，资料显示可从大理站打车抵达酒店门口；核实三人房或两间房。","source":"https://zjk.cee.edu.cn/ueditor/php/upload/file/20250819/1755566671936214.pdf"}]},{"area":"三月街 / 苍山门外 · 安静备选","reason":"靠古城西侧，D4 去苍山方便；打车可达性通常比古城深处更稳。","options":[{"tier":"连锁","name":"大理古城希尔顿花园酒店","priceRange":"10/1–10/5 实时查价","note":"酒店官网写距苍山门约 680 米，提供连通房；三位入住可比较家庭房与两间连通房总价。","source":"https://www.hilton.com/zh-hans/hotels/dluacgi-hilton-garden-inn-dali-ancient-city/"}]}],"disclaimer":"本页全部信息（天气、车次、住宿、餐饮、景点、船班、演出、票价、开放时间、交通耗时等）均为行前参考，可能不准确或已变化；出发前请在铁路12306、景区、酒店及地图等官方渠道核实后再预订或前往。","tips":["D2 为海西多点串行：若扎染体验或喜洲停留超时，把 S 湾骑行缩为 30 分钟，或改为散步。","D3 为全程最紧的一天。金梭岛与海菜花演出需先问当日船班和场次；若结束较晚，理想邦只短停拍照。","国庆车流与景区排队不可按平日估算。D2、D3 建议提前约好三人用车及候车地点。","D5 建议 15:30 左右离开古城，目标 17:00 前后到大理站；当日按路况和车站通知调整。"],"reminders":[{"item":"确定古城周边 4 晚住宿，核对 3 成人房型与取消规则","leadDays":14},{"item":"核对 10 月 5 日 18:35 返程车票与车次","leadDays":7},{"item":"确认 D2 / D3 用车与 D1 / D5 接送站方式","leadDays":5},{"item":"核实金梭岛船班、龙宫与海菜花演出场次，按需订票","leadDays":3},{"item":"核实苍山感通索道运营与天气","leadDays":1}],"days":[{"date":"2026-10-01","weekday":"周四","theme":"抵达大理 · 古城夜色","subtitle":"到站 17:37 / 轻松入住","tips":["先确认接站司机举牌或上车点；古城核心区车辆通行有限，订房时问清可下车的位置。"],"slots":[{"period":"evening","name":"大理站接站","time":"17:37–18:15","lat":25.59195,"lng":100.24852,"icon":"车","review":"出站后与接站人会合，再前往古城周边酒店。","transport":{"mode":"接站车 / 景区直通车","fare":"直通车官方资料为 ¥5/人；接站车另询价","duration":"常态约 40 分钟，国庆预留更多时间"}},{"period":"evening","name":"大理古城 · 入住与自由活动","time":"约19:00起","lat":25.69816,"lng":100.16283,"icon":"城","review":"先安顿行李，再沿人民路、复兴路选一段慢逛，不安排硬性打卡。","openingHours":"古城街巷开放；店铺时间各异","transport":{"mode":"酒店步行","fare":"免费","duration":"按酒店位置而定"}}],"dining":[{"meal":"晚餐","place":"古城周边白族菜馆（现场选店）","hours":"到店核实营业时间","dishes":[{"name":"酸辣鱼","price":"看菜单"},{"name":"乳扇","price":"看菜单"}]}]},{"date":"2026-10-02","weekday":"周五","theme":"海西 · 扎染与喜洲","subtitle":"北上周城 → 喜洲 → 海舌 → 南返 S 湾","tips":["这是多站点日，建议三人包车或约车串行；海舌至 S 湾是返程方向，不建议把两处之间全程骑完。","喜林苑外墙、转角楼可并入喜洲古镇步行段。"],"alternatives":[{"label":"若时间紧","summary":"保留周城扎染＋喜洲＋海舌；S 湾改为日落短停或取消。"}],"slots":[{"period":"morning","name":"周城扎染体验","time":"09:00–10:30","lat":25.89792,"lng":100.10739,"icon":"染","review":"先看白族扎染工序，再选择短时体验；费用与取件方式到店确认。","ticketPrice":"体验价格以店内公示为准","transport":{"mode":"从古城约车北上","fare":"按当日订单","duration":"国庆按实时路况"}},{"period":"noon","name":"喜洲古镇 · 转角楼 · 喜林苑外墙","time":"11:00–13:30","lat":25.85364,"lng":100.13044,"icon":"喜","review":"白族民居与稻田风貌是重点；把转角楼和喜林苑外墙安排在同一段步行中。","openingHours":"古镇街巷开放；院落营业与进入规则另核实","transport":{"mode":"从周城乘车南下","fare":"按当日订单","duration":"约半小时起，国庆预留拥堵"}},{"period":"noon","name":"海舌公园 · 海岛下午茶","time":"14:00–15:45","lat":25.873773530468494,"lng":100.15545731334122,"icon":"海","review":"湖边散步与下午茶；园区入口、咖啡店营业及是否需预约以当日信息为准。","transport":{"mode":"喜洲片区短途乘车","fare":"按当日订单","duration":"按实时路况"}},{"period":"evening","name":"磻溪 S 湾骑行","time":"16:30–17:30","lat":25.775652989725046,"lng":100.14857228532429,"icon":"骑","review":"选一小段生态廊道骑行即可；租车前确认车况、时长和还车点。","transport":{"mode":"乘车南返后短段骑行","fare":"租车价现场确认","duration":"建议 45–60 分钟"}}],"dining":[{"meal":"午餐","place":"喜洲古镇内白族小吃（现场选店）","hours":"以店内公示为准","dishes":[{"name":"喜洲粑粑","price":"看菜单"},{"name":"豌豆粉","price":"看菜单"}]},{"meal":"晚餐","place":"古城周边餐馆（返程后）","hours":"以店内公示为准","dishes":[{"name":"饵丝","price":"看菜单"}]}]},{"date":"2026-10-03","weekday":"周六","theme":"海东 · 金梭岛到双廊","subtitle":"本次行程最长的跨区日","tips":["海菜花演出具体场次未核实，先以当日演出时间倒推上岛与离岛；遇大排队时压缩理想邦停留。","双廊到古城的回程较长，三位出行建议提前约好返程车。"],"alternatives":[{"label":"若演出延后","summary":"金梭岛＋龙宫＋演出优先；理想邦改为车览短停，双廊／玉几岛留出步行时间。"}],"slots":[{"period":"morning","name":"摆渡上金梭岛 · 龙宫 · 海菜花","time":"暂按 09:30 上岛；演出依实际场次调整","lat":25.69568,"lng":100.25852,"icon":"岛","review":"岛、洞与白族歌舞放在同一段；船班、套票与演出是否连开必须当天核对。","needsBooking":true,"leadDays":3,"ticketPrice":"船票/项目票按官方与现场公示","transport":{"mode":"乘车至码头后换摆渡船","fare":"以售票处为准","duration":"含排队预留半天"}},{"period":"noon","name":"理想邦（大理“圣托里尼”）","time":"13:30–14:20","lat":25.70220247738261,"lng":100.26581697678223,"icon":"白","review":"海东建筑群短停观景；“圣托里尼”是当地俗称，并非希腊目的地。","transport":{"mode":"海东片区乘车","fare":"按当日订单","duration":"预留停车与步行"}},{"period":"evening","name":"双廊古镇 · 玉几岛","time":"16:00–18:00","lat":25.90937,"lng":100.19107,"icon":"廊","review":"到双廊后步行到玉几岛片区；不再额外增加付费岛屿，留时间返回古城。","openingHours":"街巷开放；玉几岛入口及收费当日核实","transport":{"mode":"海东乘车北上，游毕返古城","fare":"按当日订单","duration":"跨区长距离，需预留拥堵"}}],"dining":[{"meal":"午餐","place":"海东片区简餐（按演出时间安排）","hours":"以店内公示为准","dishes":[{"name":"米线","price":"看菜单"}]},{"meal":"晚餐","place":"双廊古镇内餐馆或回古城后就餐","hours":"以店内公示为准","dishes":[{"name":"白族家常菜","price":"看菜单"}]}]},{"date":"2026-10-04","weekday":"周日","theme":"苍山 · 感通索道","subtitle":"上午上山，下午留白","tips":["“感通寺索道”通常指苍山感通索道，下站在感通寺附近。不要将它与洗马潭大索道混淆。","天气或大风停运时改古城休闲，不强行进山。"],"alternatives":[{"label":"索道停运","summary":"改为古城散步、茶馆休息；已购票按景区规则处理。"}],"slots":[{"period":"morning","name":"大理古城出发","time":"08:30–09:15","lat":25.69816,"lng":100.16283,"icon":"城","review":"早餐后前往感通索道下站，先核实景区当天是否正常运行。","transport":{"mode":"约车前往","fare":"按当日订单","duration":"以实时路况为准"}},{"period":"morning","name":"苍山感通索道 · 清碧溪片区","time":"09:30–13:00","lat":25.647436,"lng":100.167171,"icon":"山","review":"乘索道看苍山洱海，在开放步道范围内量力步行；穿防滑鞋。","openingHours":"索道常规运营以景区当日公告为准","ticketPrice":"政府批复：单程 ¥65 / 往返 ¥100（另核实景区门票与当日售价）","needsBooking":true,"leadDays":1,"transport":{"mode":"感通索道往返","fare":"按票务公示","duration":"含排队预留半天"}},{"period":"evening","name":"返回古城休息","time":"下午弹性安排","lat":25.69816,"lng":100.16283,"icon":"茶","review":"山上下来后不再赶点，逛街、喝茶或回酒店休息。"}],"dining":[{"meal":"午餐","place":"感通片区或回古城后就餐","hours":"以店内公示为准","dishes":[{"name":"白族家常菜","price":"看菜单"}]}]},{"date":"2026-10-05","weekday":"周一","theme":"睡到自然醒 · 从容返程","subtitle":"大理站 18:35 发车","tips":["酒店一般中午退房，订房时确认是否可寄存 3 人行李；不要把行李留在无人看管处。","建议 15:30 左右从古城出发、17:00 前后抵达大理站，国庆当天再根据交通情况提前。"],"slots":[{"period":"morning","name":"古城周边慢早餐 · 退房","time":"睡到自然醒–12:00","lat":25.69816,"lng":100.16283,"icon":"慢","review":"睡足后在酒店附近轻松活动；核实退房时间并寄存行李。"},{"period":"noon","name":"自由活动与简餐","time":"12:00–15:00","lat":25.69816,"lng":100.16283,"icon":"食","review":"只在酒店附近逛，不安排需要长途往返的新景点。"},{"period":"evening","name":"送站 · 大理站","time":"15:30 出发 / 18:35 发车","lat":25.59195,"lng":100.24852,"icon":"车","review":"目标提前约 90 分钟抵站，给堵车、取行李与安检留缓冲。","transport":{"mode":"预订送站车 / 官方景区直通车","fare":"以当日订单或售票处为准","duration":"常态约 40 分钟，国庆需更多缓冲"}}],"dining":[{"meal":"午餐","place":"酒店附近简餐","hours":"以店内公示为准","dishes":[{"name":"饵丝或米线","price":"看菜单"}]}]}],"sources":[{"label":"国务院：2026 年国庆放假安排","url":"https://www.gov.cn/zhengce/zhengceku/202511/content_7047091.htm"},{"label":"12306：铁路预售期说明","url":"https://www.12306.cn/mormhweb/zxdt/202205/t20220531_37508.html"},{"label":"大理旅游集散中心：大理站—古城快线","url":"https://pc.youdali.com/mobile/article/detail/1226"},{"label":"大理市政府：感通索道票价批复","url":"https://www.yndali.gov.cn/dlsrmzf/c106727/pc/content/1983766513792946176/content_1983766513792946176.html"},{"label":"云南省民族宗教事务委员会：周城扎染","url":"https://mzzj.yn.gov.cn/html/2021/difangdongtai_0330/39127.html"},{"label":"大理州政府：苍山与玉带云游路","url":"https://www.dali.gov.cn/dlzrmzf/c101724/pc/content/1968887167324360704/content_1968887167324360704.html"},{"label":"大理统计年鉴：10 月历史气温","url":"https://www.dali.gov.cn/dlzrmzf/c105898/1971024559774732288/42c5Kj4p.pdf"},{"label":"酒店官网：大理古城希尔顿花园酒店","url":"https://www.hilton.com/zh-hans/hotels/dluacgi-hilton-garden-inn-dali-ancient-city/"},{"label":"OpenStreetMap 数据（经 Mapcarta 整理）：景点坐标","url":"https://mapcarta.com/W767449039"}]}</script>
+<script>// Leaflet 地图引擎。纯函数（buildNavLink/buildMapAppLinks/routeCoordinates/gcj02ToWgs84）可单元测试；
+// initTravelMap 需浏览器 + Leaflet (L)。浏览器与 Node 双用。
+
+// HTML 转义，防止 XSS
+function escapeHTML(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// 生成跳转手机地图导航的链接。
+// iOS 不识别 geo: scheme，用 Apple Maps 的 https 通用链接；其余平台用 geo:。
+// ua 可选（浏览器里传 navigator.userAgent），不传则回退 geo:。
+function buildNavLink(lat, lng, label, ua) {
+  if (ua && /iPhone|iPad|iPod/.test(ua)) {
+    return 'https://maps.apple.com/?ll=' + lat + ',' + lng + '&q=' + encodeURIComponent(label);
+  }
+  return 'geo:' + lat + ',' + lng + '?q=' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')';
+}
+
+// 常用地图 App 的点位链接（免 key 的官方 URI 规范：高德 URI API、Google Maps URLs）。
+// 这不是 page-contract 的 actionLink——不承载实时数据主张，只是"打开地图看这个点"。
+// 境内点只给高德（Google 地图境内不可用、底图坐标系还会偏移）；境外点给 Google + 高德。
+// 输入坐标一律 WGS-84：高德 URI 用 coordinate=wgs84 声明由其换算，Google 本身即 WGS-84。
+// isInChinaBBox 声明在下方 GCJ 区块（函数声明有提升，此处可用）。
+function buildMapAppLinks(lat, lng, label) {
+  var amap = {
+    label: '高德地图',
+    url: 'https://uri.amap.com/marker?position=' + lng + ',' + lat
+      + '&name=' + encodeURIComponent(label)
+      + '&coordinate=wgs84&callnative=1&src=travel-plan-viz',
+  };
+  var google = {
+    label: 'Google 地图',
+    url: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(lat + ',' + lng),
+  };
+  return isInChinaBBox(lat, lng) ? [amap] : [google, amap];
+}
+
+// —— GCJ-02 → WGS-84 坐标转换 ——
+// 高德/腾讯地图返回的坐标是 GCJ-02（国测局加密），直接画在 OSM（WGS-84）瓦片上
+// 会偏移一百到几百米。凡坐标来自高德/腾讯类 skill，必须先经此函数转换。
+// 中国境外坐标原样返回（GCJ-02 仅在境内加偏）。
+var GCJ_A = 6378245.0;
+var GCJ_EE = 0.00669342162296594323;
+
+function isInChinaBBox(lat, lng) {
+  return lng >= 72.004 && lng <= 137.8347 && lat >= 0.8293 && lat <= 55.8271;
+}
+
+function gcjTransformLat(x, y) {
+  var ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+  ret += (20.0 * Math.sin(6.0 * x * Math.PI) + 20.0 * Math.sin(2.0 * x * Math.PI)) * 2.0 / 3.0;
+  ret += (20.0 * Math.sin(y * Math.PI) + 40.0 * Math.sin(y / 3.0 * Math.PI)) * 2.0 / 3.0;
+  ret += (160.0 * Math.sin(y / 12.0 * Math.PI) + 320.0 * Math.sin(y * Math.PI / 30.0)) * 2.0 / 3.0;
+  return ret;
+}
+
+function gcjTransformLng(x, y) {
+  var ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+  ret += (20.0 * Math.sin(6.0 * x * Math.PI) + 20.0 * Math.sin(2.0 * x * Math.PI)) * 2.0 / 3.0;
+  ret += (20.0 * Math.sin(x * Math.PI) + 40.0 * Math.sin(x / 3.0 * Math.PI)) * 2.0 / 3.0;
+  ret += (150.0 * Math.sin(x / 12.0 * Math.PI) + 300.0 * Math.sin(x / 30.0 * Math.PI)) * 2.0 / 3.0;
+  return ret;
+}
+
+function gcj02ToWgs84(lat, lng) {
+  if (!isInChinaBBox(lat, lng)) return { lat: lat, lng: lng };
+  var dLat = gcjTransformLat(lng - 105.0, lat - 35.0);
+  var dLng = gcjTransformLng(lng - 105.0, lat - 35.0);
+  var radLat = lat / 180.0 * Math.PI;
+  var magic = Math.sin(radLat);
+  magic = 1 - GCJ_EE * magic * magic;
+  var sqrtMagic = Math.sqrt(magic);
+  dLat = (dLat * 180.0) / ((GCJ_A * (1 - GCJ_EE)) / (magic * sqrtMagic) * Math.PI);
+  dLng = (dLng * 180.0) / (GCJ_A / sqrtMagic * Math.cos(radLat) * Math.PI);
+  return { lat: lat - dLat, lng: lng - dLng };
+}
+
+// 从有序点位提取 [lat,lng] 数组，用于连线
+function routeCoordinates(points) {
+  return points.map(function (p) { return [p.lat, p.lng]; });
+}
+
+// 初始化地图：编号 divIcon 标记、按序虚线路线、点击弹出 名称+时间+导航链接。
+// elementId: 容器 id；points: [{lat, lng, name, time}]（按行程顺序，坐标须为 WGS-84）
+// opts 可选：{ tileUrl, attribution } 替换默认 OSM 瓦片源（如 OSM 访问不稳时换镜像）。
+function initTravelMap(elementId, points, opts) {
+  opts = opts || {};
+  var map = L.map(elementId);
+  L.tileLayer(opts.tileUrl || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: opts.attribution || '© OpenStreetMap contributors',
+    maxZoom: 19,
+  }).addTo(map);
+
+  var ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+  points.forEach(function (p, i) {
+    var icon = L.divIcon({
+      className: 'route-pin',
+      html: '<span class="route-pin__num">' + (i + 1) + '</span>',
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+    });
+    var navLinks = [{ label: '导航', url: buildNavLink(p.lat, p.lng, p.name, ua) }]
+      .concat(buildMapAppLinks(p.lat, p.lng, p.name));
+    L.marker([p.lat, p.lng], { icon: icon }).addTo(map).bindPopup(
+      '<b>' + (i + 1) + '. ' + escapeHTML(p.name) + '</b><br>'
+      + (p.time ? escapeHTML(p.time) + '<br>' : '')
+      + navLinks.map(function (l) {
+          return '<a href="' + l.url + '">' + escapeHTML(l.label) + '</a>';
+        }).join(' · ')
+    );
+  });
+
+  var coords = routeCoordinates(points);
+  if (coords.length > 1) {
+    L.polyline(coords, { dashArray: '6 8', weight: 2 }).addTo(map);
+  }
+  map.fitBounds(coords.length ? coords : [[0, 0]], { padding: [30, 30] });
+  return map;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    buildNavLink: buildNavLink,
+    buildMapAppLinks: buildMapAppLinks,
+    routeCoordinates: routeCoordinates,
+    gcj02ToWgs84: gcj02ToWgs84,
+    initTravelMap: initTravelMap,
+  };
+}
+</script><script>// 出发前提醒：截止日期计算 + 渲染。浏览器与 Node 双用。
+
+// startDateISO: 'YYYY-MM-DD'；items: [{item, leadDays}]
+// 返回按 deadline 升序的 [{item, leadDays, deadline}]，deadline 为 'YYYY-MM-DD'
+// 用 UTC 做日期运算，避免本地时区导致的偏移。
+function computeReminders(startDateISO, items) {
+  return items
+    .map(function (it) {
+      var d = new Date(startDateISO + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() - it.leadDays);
+      return { item: it.item, leadDays: it.leadDays, deadline: d.toISOString().slice(0, 10) };
+    })
+    .sort(function (a, b) {
+      return a.deadline < b.deadline ? -1 : a.deadline > b.deadline ? 1 : 0;
+    });
+}
+
+function escapeHTML(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderChecklistHTML(reminders) {
+  var lis = reminders.map(function (r) {
+    return '<li class="todo-item">'
+      + '<input type="checkbox"> '
+      + '<span class="todo-deadline">' + r.deadline + '前</span> '
+      + '<span class="todo-text">' + escapeHTML(r.item) + '（建议提前' + r.leadDays + '天）</span>'
+      + '</li>';
+  }).join('');
+  return '<ul class="pretrip-todo">' + lis + '</ul>';
+}
+
+function reminderBadgeHTML(leadDays) {
+  return '<span class="reminder-badge">⚠️ 建议提前' + leadDays + '天订</span>';
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    computeReminders: computeReminders,
+    renderChecklistHTML: renderChecklistHTML,
+    reminderBadgeHTML: reminderBadgeHTML,
+  };
+}
+</script>
+<script>
+(function(){
+  var trip=JSON.parse(document.getElementById('trip-data').textContent);
+  var todos=computeReminders(trip.startDate,trip.reminders);
+  document.getElementById('todo-list').innerHTML=renderChecklistHTML(todos);
+  Array.from(document.querySelectorAll('.todo-item input')).forEach(function(input,i){var key='dali-2026-todo-'+i;try{input.checked=localStorage.getItem(key)==='1'}catch(e){}input.addEventListener('change',function(){try{localStorage.setItem(key,input.checked?'1':'0')}catch(e){}})});
+  var map=null;
+  function points(which){return trip.days.flatMap(function(d,i){return (which==='all'||which===String(i+1))?d.slots.map(function(s){return {lat:s.lat,lng:s.lng,name:s.name,time:s.time}}):[]})}
+  function showMap(which){if(!window.L){document.getElementById('map').style.display='none';document.getElementById('map-fallback').style.display='block';return}if(map){map.remove();map=null}map=initTravelMap('map',points(which));setTimeout(function(){map.invalidateSize()},80)}
+  document.querySelectorAll('[data-map-day]').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('[data-map-day]').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');showMap(btn.dataset.mapDay)})});
+  if(window.L){showMap('all')}else{var tries=0;var timer=setInterval(function(){if(window.L){clearInterval(timer);showMap('all')}else if(++tries>12){clearInterval(timer);showMap('all')}},500)}
+  var links=document.querySelectorAll('.nav a');links.forEach(function(a){a.addEventListener('click',function(){links.forEach(function(x){x.classList.remove('active')});a.classList.add('active')})});
+})();
+</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></body></html>
